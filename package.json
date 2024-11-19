@@ -1,0 +1,26 @@
+{
+  "name": "soljikwss",
+  "version": "1.0.0",
+  "description": "WebSocket Server for Project Store Soljik",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/momo1108/soljikwss.git"
+  },
+  "keywords": [
+    "websocket"
+  ],
+  "author": "momo1108",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/momo1108/soljikwss/issues"
+  },
+  "homepage": "https://github.com/momo1108/soljikwss#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "socket.io": "^4.8.1"
+  }
+}
