@@ -21,6 +21,6 @@
   "homepage": "https://github.com/momo1108/soljikwss#readme",
   "dependencies": {
     "express": "^4.21.1",
-    "socket.io": "^4.8.1"
+    "ws": "^8.18.0"
   }
 }

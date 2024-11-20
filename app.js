@@ -1,13 +1,21 @@
 const express = require("express");
-const { Server } = require("socket.io");
+const { createServer } = require("http");
+const WebSocket = require("ws");
 
 const app = express();
-const port = 3000;
-const server = app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
-const io = new Server(server);
+const server = createServer(app);
+const wss = new WebSocket.Server({ server });
 
-io.on("connection", (socket) => {
-  console.log(socket.id, "a user connected");
+wss.on("connection", (ws) => {
+  console.log("new client!");
+  ws.send("welcome~");
+
+  ws.on("message", (msg) => {
+    console.log(`msg received : ${msg}`);
+    ws.send(`msg successfully received. msg : ${msg}`);
+  });
+});
+
+server.listen(3000, () => {
+  console.log("server running at http://localhost:3000");
 });
