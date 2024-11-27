@@ -4,6 +4,7 @@
   "description": "WebSocket Server for Project Store Soljik",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +23,8 @@
   "dependencies": {
     "express": "^4.21.1",
     "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }

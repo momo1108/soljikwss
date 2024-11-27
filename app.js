@@ -36,6 +36,7 @@ wss.on("connection", (ws) => {
       } else if (data.type === "message") {
         // 메시지를 같은 방의 모든 클라이언트에게 브로드캐스트
         const { roomId, message } = data;
+        console.log(data);
 
         if (rooms.has(roomId)) {
           rooms.get(roomId).forEach((client) => {
