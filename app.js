@@ -19,7 +19,7 @@ wss.on("connection", (ws) => {
 
       if (data.type === "join") {
         // 클라이언트가 특정 상품 채팅방에 참여
-        const { roomId } = data;
+        const { roomId, userId } = data;
         currentRoomId = roomId;
 
         if (!rooms.has(roomId)) {
@@ -31,6 +31,7 @@ wss.on("connection", (ws) => {
           JSON.stringify({
             type: "notification",
             message: `채팅에 연결됐습니다.`,
+            userId,
           })
         );
       } else if (data.type === "message") {
