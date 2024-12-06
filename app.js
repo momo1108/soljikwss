@@ -15,37 +15,40 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (msg) => {
     try {
-      const data = JSON.parse(msg);
+      const { type, roomId, ...others } = JSON.parse(msg);
 
-      if (data.type === "join") {
+      if (type === "join") {
         // 클라이언트가 특정 상품 채팅방에 참여
-        const { roomId, userId } = data;
         currentRoomId = roomId;
 
         if (!rooms.has(roomId)) {
           rooms.set(roomId, new Set());
         }
         rooms.get(roomId).add(ws);
-        console.log(`Client joined room: ${roomId}`);
+        console.log(`Client joined room: ${roomId}, user : ${others.userId}`);
         ws.send(
           JSON.stringify({
             type: "notification",
-            message: `채팅에 연결됐습니다.`,
-            userId,
+            message: "chatting connected",
+            ...others,
           })
         );
-      } else if (data.type === "message") {
+      } else if (type === "message") {
+        console.log(type, roomId, others);
         // 메시지를 같은 방의 모든 클라이언트에게 브로드캐스트
-        const { roomId, message } = data;
-        console.log(data);
-
         if (rooms.has(roomId)) {
           rooms.get(roomId).forEach((client) => {
             if (client.readyState === WebSocket.OPEN) {
-              client.send(JSON.stringify(data));
+              client.send(
+                JSON.stringify({
+                  type: "message",
+                  roomId,
+                  ...others,
+                })
+              );
             }
           });
-          console.log(`Message sent to room ${roomId}: ${message}`);
+          console.log(`Message sent to room ${roomId}: ${others.message}`);
         } else {
           ws.send(JSON.stringify({ type: "error", message: "Room not found" }));
         }
